@@ -7,6 +7,10 @@ public class Reservation {
     private String date;
     private String time;
 
+    // @RequestBody 로 JSON 을 객체로 만들 때 Jackson 이 기본 생성자로 먼저 객체를 만든다.
+    public Reservation() {
+    }
+
     public Reservation(Long id, String name, String date, String time) {
         this.id = id;
         this.name = name;
