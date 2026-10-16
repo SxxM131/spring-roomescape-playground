@@ -7,7 +7,6 @@ public class Reservation {
     private String date;
     private String time;
 
-    // @RequestBody 로 JSON 을 객체로 만들 때 Jackson 이 기본 생성자로 먼저 객체를 만든다.
     public Reservation() {
     }
 
@@ -18,7 +17,6 @@ public class Reservation {
         this.time = time;
     }
 
-    // JSON 변환기(Jackson)는 getter 를 통해 필드 값을 읽어서 JSON 키/값을 만든다.
     public Long getId() {
         return id;
     }

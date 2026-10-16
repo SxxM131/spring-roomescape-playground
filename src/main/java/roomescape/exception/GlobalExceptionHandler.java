@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-// @ControllerAdvice: 모든 컨트롤러에서 던져진 예외를 이 클래스가 한곳에서 받아 처리한다.
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
