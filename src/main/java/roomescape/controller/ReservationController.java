@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,19 @@ public class ReservationController {
     private List<Reservation> reservations = new ArrayList<>();
     private AtomicLong index = new AtomicLong(1);
 
+    private final JdbcTemplate jdbcTemplate;
+
+    private final RowMapper<Reservation> reservationRowMapper = (resultSet, rowNum) -> new Reservation(
+            resultSet.getLong("id"),
+            resultSet.getString("name"),
+            resultSet.getString("date"),
+            resultSet.getString("time")
+    );
+
+    public ReservationController(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @GetMapping("/reservation")
     public String reservationPage() {
         return "reservation";
@@ -30,7 +45,7 @@ public class ReservationController {
     @GetMapping("/reservations")
     @ResponseBody
     public List<Reservation> reservations() {
-        return reservations;
+        return jdbcTemplate.query("SELECT id, name, date, time FROM reservation", reservationRowMapper);
     }
 
     @PostMapping("/reservations")
